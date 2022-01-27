@@ -1,0 +1,17 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: react-redux-base
+build:
+  artifacts:
+  - image: package-json-image
+    buildpacks:
+      builder: gcr.io/buildpacks/builder:v1
+deploy:
+  kubectl:
+    manifests:
+    - deployment.yaml
+portForward:
+- resourceType: service
+  resourceName: package-json-image
+  port: 3000
